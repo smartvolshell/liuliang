@@ -25,7 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.liulianggu.adapter.AdvertiseListAdapter;
+import com.liulianggu.adapter.NewAppListAdapter;
 import com.liulianggu.application.PersonalData;
 import com.liulianggu.beans.AdvertisementItem;
 import com.liulianggu.infroParse.RestCharge;
@@ -48,8 +48,8 @@ public class SaveDataPage extends Activity implements OnClickListener {
 	private TextView txtShowData;
 	private TextView txtWelcome;
 	private ListView mListView;
-	// 广告列表
-	AdvertiseListAdapter adapter;
+	// 应用列表
+	NewAppListAdapter adapter;
 
 	// private Intent intent = new Intent();
 	// 信息收发相关
@@ -68,9 +68,9 @@ public class SaveDataPage extends Activity implements OnClickListener {
 		smsObserver = new SmsObserver(this, smsHandler);
 		getContentResolver().registerContentObserver(SMS_INBOX, true,
 				smsObserver);
-		// 广告列表的实现
-		adapter = new AdvertiseListAdapter(this,
-				new AdvertisementOpration().getData());
+		// app列表的实现
+		adapter = new NewAppListAdapter(this,
+				new AdvertisementOpration().getData(this, "全部", "日期", 2, 0, 9));
 		mListView.setAdapter(adapter);
 		// 列表的点击事件
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -82,8 +82,8 @@ public class SaveDataPage extends Activity implements OnClickListener {
 				Intent intent1 = new Intent(SaveDataPage.this,
 						AdvertisementDetial.class);
 				intent1.putExtra("oldRating", item.getEvaluation());
-				intent1.putExtra("detail", item.getDetail());
-				intent1.putExtra("title", item.getTitle());
+				intent1.putExtra("detail", item.getAppName());
+				intent1.putExtra("title", item.getAppMsg());
 				startActivity(intent1);
 
 			}
@@ -131,7 +131,7 @@ public class SaveDataPage extends Activity implements OnClickListener {
 			} else {
 				Toast.makeText(getApplicationContext(), "请先登录",
 						Toast.LENGTH_SHORT).show();
-				findViewById(R.id.button1).setClickable(true);
+				findViewById(R.id.btn_take_data).setClickable(true);
 			}
 			break;
 

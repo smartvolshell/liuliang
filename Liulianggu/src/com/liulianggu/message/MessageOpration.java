@@ -51,7 +51,7 @@ public class MessageOpration extends Activity {
 		} else {
 			Toast.makeText(getApplicationContext(), "流量获取失败",
 					Toast.LENGTH_SHORT).show();
-			findViewById(R.id.button1).setClickable(true);
+			findViewById(R.id.btn_take_data).setClickable(true);
 			return -1;
 		}
 		while (true) {

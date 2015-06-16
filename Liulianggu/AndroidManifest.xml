@@ -55,6 +55,10 @@
         </activity>
         <activity android:name="com.liulianggu.activities.AdvertisementDetial" >
         </activity>
+        <activity android:name="com.liulianggu.games.GameOf2048" >
+        </activity>
+        <activity android:name="com.liulianggu.games.GameOf2048Help" >
+        </activity>
 
         <service android:name="com.liulianggu.utils.SendMessageService" >
         </service>

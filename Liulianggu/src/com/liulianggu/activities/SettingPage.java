@@ -31,27 +31,13 @@ public class SettingPage extends Activity implements OnClickListener {
 
 	private void init() {
 		app = (PersonalData) getApplication();
-		unregist = (Button) this.findViewById(R.id.unregist);
-		unregist.setOnClickListener(SettingPage.this);
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.unregist:
 
-			app.setLog(false);
-			app.setNickName("");
-			app.setGprs(0);
-			Intent intent = new Intent();
-			intent.setClass(SettingPage.this, LoginActivity.class);
-			startActivity(intent);
-			break;
-
-		default:
-			break;
-		}
 	}
 
 	@Override
