@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/friend_search"
+        android:title="搜索好友">
+    </item>
+    <item
+        android:id="@+id/friend_add"
+        android:title="添加好友">
+    </item>
+    <item
+        android:id="@+id/flow_send"
+        android:title="赠送流量">
+    </item>
+
+</menu>
