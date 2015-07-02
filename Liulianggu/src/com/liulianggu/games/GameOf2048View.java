@@ -3,9 +3,12 @@ package com.liulianggu.games;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.liulianggu.activities.LiuLianggu;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -190,6 +193,19 @@ public class GameOf2048View extends GridLayout {
 										int which) {
 									startGame();
 
+								}
+							})
+					.setNegativeButton("ÍË³ö",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									Intent intent = new Intent();
+									//intent.putExtra("Maxscore", Maxscore);
+									intent.setClass(GameOf2048.getMainActivity().getApplicationContext(), LiuLianggu.class);
+									GameOf2048.getMainActivity().startActivity(intent);
+									GameOf2048.getMainActivity().finish();
 								}
 							}).create();
 			Window window = alertDialog.getWindow();

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/get_flow_test"
+        android:title="获取流量（测试）">
+    </item>
+
+</menu>

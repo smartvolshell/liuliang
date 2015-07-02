@@ -1,5 +1,9 @@
 package com.liulianggu.activities;
 
+
+
+//import org.androidpn.client.ServiceManager;
+
 import com.liulianggu.application.PersonalData;
 import com.liulianggu.tabmenu.R;
 
@@ -27,6 +31,8 @@ public class LiuLianggu extends TabActivity {
 	public static final String TAB_SEARCH = "搜索";
 	public static final String TAB_PAGE = "更多";
 	public RadioGroup radioGroup;
+	//private ServiceManager serviceManager;
+	private PersonalData appData;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,8 +42,14 @@ public class LiuLianggu extends TabActivity {
 		setContentView(R.layout.main);
 		// 初始化底部菜单
 		init();
+		appData = (PersonalData) getApplication();
+		// Start the service
+	
+		
+		// serviceManager.setAlias(new PersonalData().getPhoneNum());
 		// 底部菜单点击事件
 		clickevent();
+
 	}
 
 	/**
@@ -95,6 +107,7 @@ public class LiuLianggu extends TabActivity {
 		TabSpec ts5 = mth.newTabSpec(TAB_PAGE).setIndicator(TAB_PAGE);
 		ts5.setContent(new Intent(LiuLianggu.this, SettingPage.class));
 		mth.addTab(ts5);
+
 	}
 
 	@Override

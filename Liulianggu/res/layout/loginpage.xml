@@ -1,98 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loginRoot"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="@drawable/default_bg"
-    android:orientation="vertical" >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout02"
-        android:layout_width="match_parent"
-        android:layout_height="343dp"
-        android:layout_marginLeft="15.0px"
-        android:layout_marginRight="15.0px"
-        android:layout_marginTop="42.0px"
-        android:background="@drawable/login_back"
-        android:paddingBottom="10dp"
-        android:paddingTop="5dp" >
+    <LinearLayout
+        android:id="@+id/loginRoot"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/default_bg"
+        android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/faceImg"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/liulianggu" />
-
-        <EditText
-            android:id="@+id/login_edit_account"
+        <RelativeLayout
+            android:id="@+id/RelativeLayout02"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/faceImg"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/qq_edit_login"
-            android:ems="10"
-            android:hint="@string/strInputAccHint"
-            android:inputType="number"
-            android:maxLength="10"
-            android:paddingLeft="45.0sp"
-            android:saveEnabled="true"
-            android:textColor="@color/black" >
+            android:layout_height="343dp"
+            android:layout_marginLeft="15.0px"
+            android:layout_marginRight="15.0px"
+            android:layout_marginTop="42.0px"
+            android:background="@drawable/login_back"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp" >
 
-            <requestFocus />
-        </EditText>
+            <ImageView
+                android:id="@+id/faceImg"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/liulianggu" />
 
-        <EditText
-            android:id="@+id/login_edit_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/login_edit_account"
-            android:layout_alignRight="@+id/login_edit_account"
-            android:layout_below="@+id/login_edit_account"
-            android:background="@drawable/qq_edit_login"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:maxLength="16"
-            android:paddingLeft="45.0sp"
-            android:saveEnabled="true"
-            android:textColor="@color/black" />
+            <EditText
+                android:id="@+id/login_edit_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/faceImg"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/qq_edit_login"
+                android:ems="10"
+                android:hint="@string/strInputAccHint"
+                android:inputType="number"
+                android:maxLength="10"
+                android:paddingLeft="45.0sp"
+                android:saveEnabled="true"
+                android:textColor="@color/black" >
 
-        <Button
-            android:id="@+id/login_btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/login_edit_pwd"
-            android:layout_alignRight="@+id/login_edit_pwd"
-            android:layout_below="@+id/login_edit_pwd"
-            android:background="@drawable/loginbg"
-            android:text="@string/login" />
+                <requestFocus />
+            </EditText>
 
-        <ImageButton
-            android:id="@+id/regist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/login_btn_login"
-            android:layout_below="@+id/login_btn_login"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/regist" />
+            <EditText
+                android:id="@+id/login_edit_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/login_edit_account"
+                android:layout_alignRight="@+id/login_edit_account"
+                android:layout_below="@+id/login_edit_account"
+                android:background="@drawable/qq_edit_login"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:paddingLeft="45.0sp"
+                android:saveEnabled="true"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/login_btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/login_edit_pwd"
+                android:layout_alignRight="@+id/login_edit_pwd"
+                android:layout_below="@+id/login_edit_pwd"
+                android:background="@drawable/loginbg"
+                android:text="@string/login" />
+
+            <ImageButton
+                android:id="@+id/regist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/login_btn_login"
+                android:layout_below="@+id/login_btn_login"
+                android:layout_marginLeft="55dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/regist" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/regist"
+                android:layout_toRightOf="@+id/faceImg"
+                android:text="@string/forget"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="99dp"
+            android:text="@string/welcome" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/formlogin_layout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/default_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/formlogin_pb"
+            style="@android:style/Widget.ProgressBar.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/formlogin_tv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/regist"
-            android:layout_toRightOf="@+id/faceImg"
-            android:text="@string/forget"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-    </RelativeLayout>
+            android:layout_marginTop="10.0dip"
+            android:text="正在登陆" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="99dp"
-        android:text="@string/welcome" />
-
-</LinearLayout>
+</FrameLayout>

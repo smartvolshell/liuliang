@@ -2,6 +2,8 @@ package com.liulianggu.application;
 
 import java.math.BigDecimal;
 
+import org.androidpn.client.ServiceManager;
+
 import android.app.Application;
 
 import com.liulianggu.beans.UserInfo;
@@ -21,6 +23,8 @@ public class PersonalData extends Application {
 	private String HeadPortrait;
 	/** 用户等级 */
 	private int UserDegree;
+	/** 消息推送链接 */
+	private ServiceManager serviceManager;
 
 	public void setUserInfo(UserInfo userInfo) {
 		this.PhoneNum = userInfo.getPhoneNum();
@@ -28,6 +32,14 @@ public class PersonalData extends Application {
 		this.NickName = userInfo.getNickName();
 		this.HeadPortrait = userInfo.getHeadPortrait();
 		this.UserDegree = userInfo.getUserDegree();
+	}
+	
+	public ServiceManager getServiceManager() {
+		return serviceManager;
+	}
+
+	public void setServiceManager(ServiceManager serviceManager) {
+		this.serviceManager = serviceManager;
 	}
 
 	public String getHeadPortrait() {

@@ -1,5 +1,7 @@
 package com.liulianggu.activities;
 
+import org.androidpn.client.ServiceManager;
+
 import com.liulianggu.application.PersonalData;
 import com.liulianggu.tabmenu.R;
 import com.liulianggu.tabmenu.R.id;
@@ -30,6 +32,8 @@ public class SendFlows extends Activity {
 	Button sure;
 	Button cancel;
 
+	private PersonalData appData;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,10 +57,14 @@ public class SendFlows extends Activity {
 				String phoneNum = receiverNum.getText().toString().trim();
 				FlowOpration flowOpration = new FlowOpration(
 						(PersonalData) getApplication());
-				if (flowOpration.sendFlow(phoneNum, flow)) {
-					Intent intent2 = new Intent(SendFlows.this,
-							LiuLianggu.class);
-					startActivity(intent2);
+				if (true || flowOpration.sendFlow(phoneNum, flow)) {
+					// Intent intent2 = new Intent(SendFlows.this,
+					// LiuLianggu.class);
+					// startActivity(intent2);
+
+					appData.getServiceManager().sendFlow(phoneNum,
+							String.valueOf(flow));
+					SendFlows.this.finish();
 				} else {
 					Toast.makeText(SendFlows.this, "‘˘ÀÕ ß∞‹", Toast.LENGTH_LONG)
 							.show();
@@ -80,6 +88,7 @@ public class SendFlows extends Activity {
 		flowNum = (EditText) findViewById(R.id.flowNum);
 		sure = (Button) findViewById(R.id.sure);
 		cancel = (Button) findViewById(R.id.cancel);
+		appData = (PersonalData) getApplication();
 	}
 
 }

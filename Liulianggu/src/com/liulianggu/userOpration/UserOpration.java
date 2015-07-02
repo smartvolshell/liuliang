@@ -1,10 +1,14 @@
 package com.liulianggu.userOpration;
 
+import org.jivesoftware.smack.XMPPConnection;
+
 import android.app.Activity;
 
 import com.liulianggu.application.PersonalData;
 import com.liulianggu.beans.UserInfo;
 import com.liulianggu.sever.SeverOpration;
+import com.liulianggu.utils.XmppService;
+import com.liulianggu.utils.XmppTool;
 
 /**
  * @author Volshell
@@ -56,10 +60,14 @@ public class UserOpration extends Activity {
 	 */
 	public boolean userRegist(UserInfo user) {
 		if (severOpration.registSucc(user)) {
-			app.setLog(true);
-			app.setGprs(severOpration.getGprs(user.getPhoneNum()));
-			app.setUserInfo(user);
-			return true;
+			// ÓÃ»§×¢²á
+			String result = XmppService.regist(user.getPhoneNum(),
+					user.getPassword(), user.getNickName());
+			XmppTool.closeConnection();
+			if (result.equals("1"))
+				return true;
+			else
+				return false;
 		} else {
 			return false;
 		}

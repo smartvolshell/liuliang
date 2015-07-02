@@ -2,7 +2,7 @@ package com.liulianggu.utils;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,11 @@ import android.os.PowerManager.WakeLock;
 import android.telephony.SmsManager;
 import android.util.Log;
 
+/**
+ * @author volshell
+ * 
+ *         发送段信息服务
+ */
 public class SendMessageService extends Service {
 
 	WakeLock wakeLock;
@@ -22,7 +27,11 @@ public class SendMessageService extends Service {
 		return null;
 	}
 
+	/******
+	 * 关闭屏幕的时候，可以唤醒屏幕
+	 */
 	public void onCreate() {
+
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
 				SendMessageService.class.getName());
@@ -32,11 +41,12 @@ public class SendMessageService extends Service {
 
 	@SuppressWarnings("deprecation")
 	public void onStart(Intent intent, int startId) {
-		Log.d("sm", "start");
 		int timesend = intent.getExtras().getInt("timesend");
 		Timer timer = new Timer();
+		/** 启动定时活动 */
 		TimerTask ttTask = new TimerTask() {
 
+			@SuppressLint("UnlocalizedSms")
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub

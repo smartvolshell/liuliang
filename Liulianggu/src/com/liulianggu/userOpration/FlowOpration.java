@@ -32,12 +32,13 @@ public class FlowOpration extends Activity {
 	 * @return
 	 */
 	public boolean saveFlow(float gprs) {
-		boolean flag = false;
-		if (sopOpration.saveFlow(appDate.getPhoneNum(), gprs)) {
-			appDate.setGprs(sopOpration.getGprs(appDate.getPhoneNum()));
-			flag = true;
-		}
-		return flag;
+		boolean flag = true;
+		return true;
+		// if (sopOpration.saveFlow(appDate.getPhoneNum(), gprs)) {
+		// appDate.setGprs(sopOpration.getGprs(appDate.getPhoneNum()));
+		// flag = true;
+		// }
+		// return flag;
 	}
 
 	/*******************

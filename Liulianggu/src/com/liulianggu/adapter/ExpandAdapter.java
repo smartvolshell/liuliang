@@ -3,6 +3,7 @@ package com.liulianggu.adapter;
 import java.util.List;
 
 import com.liulianggu.beans.FriendItem;
+import com.liulianggu.beans.Friends;
 import com.liulianggu.tabmenu.R;
 
 import android.R.drawable;
@@ -22,16 +23,19 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
 	private String[] mGroupStrings = null;
 	private List<List<FriendItem>> mData = null;
 
-	public ExpandAdapter(Context ctx, List<List<FriendItem>> list) {
+	public ExpandAdapter(Context ctx, Friends friends) {
 		mContext = ctx;
 		mInflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mGroupStrings = mContext.getResources().getStringArray(R.array.groups);
-		mData = list;
+		List<String> groupNames = friends.getGroupNames();
+		mGroupStrings = groupNames.toArray(new String[groupNames.size()]);
+		mData = friends.getAllFriends();
 	}
 
-	public void setData(List<List<FriendItem>> list) {
-		mData = list;
+	public void setData(Friends friends) {
+		List<String> groupNames = friends.getGroupNames();
+		mGroupStrings = groupNames.toArray(new String[groupNames.size()]);
+		mData = friends.getAllFriends();
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.liulianggu.userOpration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.liulianggu.beans.AdvertisementItem;
+import com.liulianggu.sever.SeverOpration;
 import com.liulianggu.tabmenu.R;
 
 public class AdvertisementOpration extends Activity {
@@ -30,20 +33,24 @@ public class AdvertisementOpration extends Activity {
 	 * @return
 	 */
 	public List<AdvertisementItem> getData(Context mContext, String type,
-			String sorType, int sortDirection, int start, int end) {
-		List<AdvertisementItem> advertisementItems = new ArrayList<AdvertisementItem>();
-		for (int i = start; i <= end; i++) {
-			Bitmap imagBitmap = BitmapFactory.decodeResource(
-					mContext.getResources(), R.drawable.liulianggu);
-			String title = "软件" + i;
-			String detail = type + i + "排序" + sorType + "方向" + sortDirection;
-			AdvertisementItem advertisementItem = new AdvertisementItem();
-			advertisementItem.setImag(imagBitmap);
-			advertisementItem.setAppName(title);
-			advertisementItem.setAppMsg(detail);
-			advertisementItem.setEvaluation((float) 3.5);
-			advertisementItems.add(advertisementItem);
+			String sorType, int sortDirection, int clo) {
+		if (type.equals("全部"))
+			type = "selectSome";
+		else {
+			sorType = type;
+			type = "selectSomeType";
 		}
+
+		Log.e("log_tag", type + "1" + sorType + "1" + clo);
+		List<AdvertisementItem> advertisementItems = new ArrayList<AdvertisementItem>();
+		// List<AdvertisementItem> advertisementItems = new SeverOpration()
+		// .getAppInfo(mContext, type, sorType, clo);
+
 		return advertisementItems;
+	}
+
+	public boolean apkDownLoad(String url) throws IOException {
+		SeverOpration severOpration = new SeverOpration();
+		return severOpration.apkDownLoad(url);
 	}
 }

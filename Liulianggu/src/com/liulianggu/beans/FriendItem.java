@@ -1,8 +1,7 @@
 package com.liulianggu.beans;
 
 public class FriendItem {
-	public static int TEL_FRIEND = 0;
-	public static int REL_FRIEDN = 1;
+	public static String TEL_FRIEND = "通讯录好友";
 	/** 图片 */
 	private int imageId;
 	/** 电话号码 */
@@ -14,13 +13,14 @@ public class FriendItem {
 	/** 详细信息 */
 	private String message;
 	/** 标示位，1为数据库好友，0为手机好友 */
-	private int friendType;
+	private String friendType;
 
 	public FriendItem() {
 		imageId = -1;
 		phoneNum = null;
 		nickName = null;
 		message = null;
+		note = "";
 	}
 
 	public FriendItem(int imageId, String phoneNum, String nickName,
@@ -71,11 +71,11 @@ public class FriendItem {
 		this.message = message;
 	}
 
-	public int getFriendType() {
+	public String getFriendType() {
 		return friendType;
 	}
 
-	public void setFriendType(int friendType) {
+	public void setFriendType(String friendType) {
 		this.friendType = friendType;
 	}
 

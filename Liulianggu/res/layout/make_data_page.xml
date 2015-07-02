@@ -24,6 +24,7 @@
         android:id="@+id/play_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="在这里赚取流量" />
 
     <LinearLayout

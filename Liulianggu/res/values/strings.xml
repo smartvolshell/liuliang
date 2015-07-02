@@ -30,5 +30,11 @@
     <string name="title_activity_send_flows">SendFlows</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_advertisement_detial">AdvertisementDetial</string>
-
-</resources>
+    <string name="title_activity_add_friend">AddFriend</string>
+    <string name="register_tip">提示 \n带*项为必填项\n填写邮箱方便您找回密码以及了解更多QQ信息</string>
+    <string name="add_attention">一键分享</string>
+    <string name="user_rank">好友排名: NO.1</string>
+    <string name="user_name">流量谷管理员</string>
+    <string name="user_des">流量谷，开启流量的全新时代</string>
+    <string name="user_class">流量谷超级用户</string>
+</resources>

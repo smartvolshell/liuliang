@@ -1,20 +1,31 @@
 package com.liulianggu.activities;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -27,8 +38,10 @@ import android.widget.Spinner;
 import android.widget.ProgressBar;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.liulianggu.adapter.NewAppListAdapter;
+import com.liulianggu.adapter.NewAppListAdapter.Callback;
 import com.liulianggu.beans.AdvertisementItem;
 import com.liulianggu.games.GameOf2048;
 import com.liulianggu.tabmenu.R;
@@ -41,8 +54,8 @@ import com.liulianggu.userOpration.AdvertisementOpration;
  *
  */
 public class MakeDataPage extends Activity implements OnScrollListener,
-		OnItemSelectedListener, OnClickListener {
-	private Button playGame;
+		OnItemSelectedListener, OnClickListener, Callback {
+	// private Button playGame;
 	private ListView appList;
 	private Spinner appType;
 	private Spinner appSortType;
@@ -53,7 +66,7 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 	// 数据刷新线程
 	private Thread mThread;
 	private int nowPosition = 0;
-	private int isFirst = 0;
+	private boolean isOver = false;
 	// 当前的排序情况
 	private String nowSortType;
 	private int nowSrotDirection;
@@ -83,7 +96,7 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 	 * 绑定控件
 	 */
 	private void init() {
-		playGame = (Button) findViewById(R.id.play_game);
+		// playGame = (Button) findViewById(R.id.play_game);
 		appList = (ListView) findViewById(R.id.apps);
 		appType = (Spinner) findViewById(R.id.appType);
 		appSortType = (Spinner) findViewById(R.id.appSortType);
@@ -117,15 +130,18 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 		nowSortType = appSortType.getSelectedItem().toString().trim();
 		nowSrotDirection = 0;
 		mData = getData();
-		adapter = new NewAppListAdapter(this, mData);
+		adapter = new NewAppListAdapter(this, mData, this);
+		nowPosition = adapter.getCount();
 		// 给ListView添加适配器
 		appList.setAdapter(adapter);
 		// 给ListView注册滚动监听
 		appList.setOnScrollListener(this);
+		appType.setSelection(0, false);
 		appType.setOnItemSelectedListener(this);
+		appSortType.setSelection(0, false);
 		appSortType.setOnItemSelectedListener(this);
-		//
-		playGame.setOnClickListener(this);
+		// 玩游戏
+		// playGame.setOnClickListener(this);
 	}
 
 	@Override
@@ -138,7 +154,7 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		if (firstVisibleItem + visibleItemCount == totalItemCount) {
+		if (firstVisibleItem + visibleItemCount == totalItemCount && !isOver) {
 			// 开线程去下载网络数据
 			if (mThread == null || !mThread.isAlive()) {
 				mThread = new Thread() {
@@ -150,7 +166,6 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-
 						mData = getData();
 						Message message = new Message();
 						message.what = 1;
@@ -173,11 +188,6 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
-		if (isFirst < 2) {
-			isFirst++;
-			return;
-		}
-
 		switch (parent.getId()) {
 		case R.id.appType:
 			nowSrotDirection = 0;
@@ -192,7 +202,6 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 						.toString().trim();
 				nowSrotDirection = 0;
 			}
-
 			break;
 		default:
 			break;
@@ -207,13 +216,6 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-
-		case R.id.play_game:
-			Intent intent = new Intent();
-			intent.setClass(getApplicationContext(), GameOf2048.class);
-			startActivity(intent);
-			finish();
-			break;
 
 		default:
 			break;
@@ -248,7 +250,7 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 	private List<AdvertisementItem> getData() {
 		return new AdvertisementOpration().getData(this, appType
 				.getSelectedItem().toString().trim(), nowSortType,
-				nowSrotDirection, nowPosition, nowPosition + 9);
+				nowSrotDirection, nowPosition / 10 + 1);
 	}
 
 	/**
@@ -261,17 +263,41 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 			switch (msg.what) {
 			// 数据下拉更新
 			case 1:
+				if (mData == null || mData.size() < 10) {
+					appList.removeFooterView(loadingLayout);
+					isOver = true;
+				}
 				adapter.addData(mData);
 				nowPosition = adapter.getCount();
-				// 重新刷新Listview的adapter里面数据
+				Log.e("log_tag", "" + nowPosition);
 				adapter.notifyDataSetChanged();
 				break;
 			// 数据选择刷新
 			case 2:
 				adapter.getNewData(mData);
 				nowPosition = adapter.getCount();
+				if (nowPosition < 10) {
+					appList.removeFooterView(loadingLayout);
+					isOver = true;
+				} else {
+					appList.addFooterView(loadingLayout);
+					isOver = false;
+				}
 				adapter.notifyDataSetChanged();
 				appList.setSelection(0);
+				break;
+			// 下载完成
+			case 3:
+				Button button = (Button) msg.obj;
+				button.setText("打开");
+				button.setClickable(true);
+				break;
+			// 下载失败，可重新下载
+			case 4:
+				Button button1 = (Button) msg.obj;
+				button1.setText("下载");
+				button1.setClickable(true);
+				break;
 			default:
 				break;
 			}
@@ -290,6 +316,108 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 						System.exit(0);
 					}
 				}).setNegativeButton("取消", null).show();
+	}
+
+	/*********************
+	 * 列表中的下载按钮点击事件
+	 */
+	@Override
+	public void click(View v) {
+		Toast.makeText(
+				MakeDataPage.this,
+				"listview的内部的按钮被点击了！，位置是-->" + (Integer) v.getTag() + ",内容是-->"
+						+ adapter.getItem((Integer) v.getTag()).getApkUrl(),
+				Toast.LENGTH_SHORT).show();
+
+		// new ServerOpration.apkDownLoad(adapter.getItem((Integer)
+		// v.getTag()).getApkUrl())
+		final String urlString = adapter.getItem((Integer) v.getTag())
+				.getApkUrl();
+		final Button button = (Button) v;
+		// 初始，未下载点击，开始下载
+		if (button.getText().toString().trim().equals("下载")) {
+			button.setText("下载中..");
+			button.setClickable(false);
+			Thread thread = new Thread() {
+				public void run() {
+					Looper.prepare();
+					Message message = new Message();
+					message.obj = button;
+					try {
+						// 下载成功
+						if (new AdvertisementOpration().apkDownLoad(urlString)) {
+							message.what = 3;
+						} else {
+							// 下载失败
+							message.what = 4;
+						}
+						handler.sendMessage(message);
+					} catch (IOException e) {
+						// 下载失败
+						message.what = 4;
+						handler.sendMessage(message);
+					}
+				};
+			};
+			thread.start();
+		} else {
+			String dirName = Environment.getExternalStorageDirectory()
+					+ "/MyDownload/";
+			File f = new File(dirName);
+			Log.e("log_tag", "链接");
+			if (!f.exists()) {
+				f.mkdir();
+				Log.e("log_tag", "链接1111111");
+			}
+			Log.e("log_tag", "链接");
+			String newFilename = urlString
+					.substring(urlString.lastIndexOf("/") + 1);
+			newFilename = dirName + newFilename;
+			File file = new File(newFilename);
+
+			Intent intent = new Intent();
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.setAction(android.content.Intent.ACTION_VIEW);
+			intent.setDataAndType(Uri.fromFile(file),
+					"application/vnd.android.package-archive");
+			startActivity(intent);
+
+		}
+		// try {
+		// if (new AdvertisementOpration().apkDownLoad(adapter.getItem(
+		// (Integer) v.getTag()).getApkUrl()))
+		// button.setText("下载完毕");
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+	}
+
+	/************
+	 * 左键菜单
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		new MenuInflater(this).inflate(R.menu.make_data_page_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	/**********
+	 * 左键菜单点击事件
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.play_game:
+			Intent intent = new Intent();
+			intent.setClass(getApplicationContext(), GameOf2048.class);
+			startActivity(intent);
+			finish();
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

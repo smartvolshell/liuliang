@@ -8,16 +8,28 @@ import com.liulianggu.tabmenu.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class NewAppListAdapter extends BaseAdapter {
+public class NewAppListAdapter extends BaseAdapter implements OnClickListener {
 
 	private Context mContext;
 	private List<AdvertisementItem> mData = null;
+	private Callback mCallback;
+
+	/**
+	 * 自定义接口，用于回调按钮点击事件到Activity
+	 * 
+	 * @author Ivan Xu 2014-11-26
+	 */
+	public interface Callback {
+		public void click(View v);
+	}
 
 	public NewAppListAdapter(Context ctx) {
 		mContext = ctx;
@@ -27,6 +39,13 @@ public class NewAppListAdapter extends BaseAdapter {
 	public NewAppListAdapter(Context ctx, List<AdvertisementItem> list) {
 		mContext = ctx;
 		mData = list;
+	}
+
+	public NewAppListAdapter(Context ctx, List<AdvertisementItem> list,
+			Callback callback) {
+		mContext = ctx;
+		mData = list;
+		mCallback = callback;
 	}
 
 	@Override
@@ -80,10 +99,18 @@ public class NewAppListAdapter extends BaseAdapter {
 		holder.ratingBar.setRating(mData.get(position).getEvaluation());
 		// app名称
 		holder.mChildName = (TextView) convertView.findViewById(R.id.item_name);
-		holder.mChildName.setText(mData.get(position).getAppName());
+		holder.mChildName.setText(mData.get(position).getAppName() + "("
+				+ mData.get(position).getAppDownLoadVal() + ")");
 		// app信息
 		holder.mDetail = (TextView) convertView.findViewById(R.id.item_detail);
 		holder.mDetail.setText(mData.get(position).getAppMsg());
+		// app下载
+		holder.downLoadButton = (Button) convertView
+				.findViewById(R.id.app_down_load);
+		holder.downLoadButton.setOnClickListener(this);
+		holder.downLoadButton.setTag(position);
+		// + mData.get(position).getAppDownLoadVal()
+		// + mData.get(position).getAppType());
 		convertView.setFocusable(false);
 		return convertView;
 
@@ -100,6 +127,13 @@ public class NewAppListAdapter extends BaseAdapter {
 		TextView mChildName;
 		TextView mDetail;
 		RatingBar ratingBar;
+		Button downLoadButton;
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		mCallback.click(v);
 	}
 
 }

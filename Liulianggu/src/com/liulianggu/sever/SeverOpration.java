@@ -1,10 +1,17 @@
 package com.liulianggu.sever;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -13,19 +20,29 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.liulianggu.beans.AdvertisementItem;
 import com.liulianggu.beans.UserInfo;
+import com.liulianggu.tabmenu.R;
+import com.liulianggu.utils.BitmapUtil;
 
+import android.R.integer;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 
 public class SeverOpration {
 
-	private final String KEY = "http://172.20.41.58:8088/liulianggu/";
+	private final String KEY = "http://172.19.29.76:8088/liulianggu/";
 
 	/**********
 	 * 链接服务器预处理方法
@@ -99,7 +116,7 @@ public class SeverOpration {
 				+ "&nickName=" + user.getNickName();
 		// http://172.20.41.41:8088/liulianggu/NewUserInfo.action?phoneNum=98765&password=123456&nickName=1234
 		String result = getResult(keyString).replace("\n", "");
-		Log.e("log_tag", "1111" + result + "2222");
+		// Log.e("log_tag", "1111" + result + "2222");
 		if (result.equals("success"))
 			flag = true;
 		return flag;
@@ -162,6 +179,52 @@ public class SeverOpration {
 	 */
 	public boolean saveFlow(String phoneNum, float saveGprs) {
 		return takeFlow(phoneNum, 0 - saveGprs);
+	}
+
+	public List<AdvertisementItem> getAppInfo(Context mContext, String type,
+			String sorType, int clo) {
+		List<AdvertisementItem> advertisementItems = new ArrayList<AdvertisementItem>();
+
+		pretreatment();
+		String keyString = KEY + "AppInfo.action?type=" + type + "&appType="
+				+ sorType + "&clo=" + clo;
+		// http://172.20.41.58:8088/liulianggu/AppInfo.action?type=selectSome&appType='手机游戏'&clo=1
+		String result = getResult(keyString);
+		if (result.replace("\n", "").equals("error")) {
+			Log.e("log_tag", "2222222222");
+			return null;
+		}
+		try {
+			JSONArray jsonArray = new JSONArray(result);
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				AdvertisementItem advertisementItem = new AdvertisementItem();
+
+				String imageUrl = KEY + jsonObject.getString("appIcon");
+				advertisementItem.setImag(BitmapUtil.small(mContext,
+						getBitmap(imageUrl)));
+				advertisementItem.setAppIcon(jsonObject.getString("appIcon"));
+				advertisementItem.setAppName(jsonObject.getString("appName"));
+				advertisementItem.setAppMsg(jsonObject.getString("appMsg"));
+				advertisementItem.setAppType(jsonObject.getString("appType"));
+				advertisementItem.setApkUrl(jsonObject.getString("apkUrl"));
+				advertisementItem.setEvaluation(Float.parseFloat(jsonObject
+						.getString("evaluation")));
+				advertisementItem.setAppDownLoadVal(jsonObject
+						.getInt("appDownLoadVal"));
+				advertisementItems.add(advertisementItem);
+			}
+
+		} catch (JSONException e) {
+			Log.e("log_tag", "111111111");
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Log.e("log_tag", "图片获取失败");
+			return null;
+		}
+
+		return advertisementItems;
 	}
 
 	/******************
@@ -230,5 +293,74 @@ public class SeverOpration {
 		} else {
 			return data;
 		}
+	}
+
+	private Bitmap getBitmap(String path) throws IOException {
+		URL url = new URL(path);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setConnectTimeout(5000);
+		conn.setRequestMethod("GET");
+		if (conn.getResponseCode() == 200) {
+			InputStream inputStream = conn.getInputStream();
+			Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+			return bitmap;
+		}
+		return null;
+	}
+
+	public boolean apkDownLoad(String path) throws IOException {
+		boolean flag = true;
+		URL url = new URL(KEY + path);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setConnectTimeout(10 * 1000); // 超时时间
+		connection.connect(); // 连接
+		Log.e("log_tag", "链接");
+		if (connection.getResponseCode() == 200) { // 返回的响应码200,是成功.
+			// Log.e("log_tag", "链接");
+			// // File file = new File("/mnt/" + path); // 这里我是手写了。建议大家用自带的类
+			// Log.e("log_tag", "链接");
+			// // file.createNewFile();
+			// Log.e("log_tag", "链接");
+
+			// 获得存储卡路径，构成 保存文件的目标路径
+			String dirName = Environment.getExternalStorageDirectory()
+					+ "/MyDownload/";
+			File f = new File(dirName);
+			Log.e("log_tag", "链接");
+			if (!f.exists()) {
+				f.mkdir();
+				Log.e("log_tag", "链接1111111");
+			}
+			Log.e("log_tag", "链接");
+			String newFilename = path.substring(path.lastIndexOf("/") + 1);
+			newFilename = dirName + newFilename;
+			File file = new File(newFilename);
+			Log.e("log_tag", "链接");
+			if (file.exists()) {
+				file.delete();
+				Log.e("log_tag", "链接wwwwwww");
+			}
+			Log.e("log_tag", "链接");
+			InputStream inputStream = connection.getInputStream();
+			ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream(); // 缓存
+			byte[] buffer = new byte[1024 * 10];
+			while (true) {
+				int len = inputStream.read(buffer);
+				Log.e("log_tag", "Error converting result " + len);
+				// publishProgress(len);
+				if (len == -1) {
+					break; // 读取完
+				}
+				arrayOutputStream.write(buffer, 0, len); // 写入
+			}
+			arrayOutputStream.close();
+			inputStream.close();
+
+			byte[] data = arrayOutputStream.toByteArray();
+			FileOutputStream fileOutputStream = new FileOutputStream(file);
+			fileOutputStream.write(data); // 记得关闭输入流
+			fileOutputStream.close();
+		}
+		return flag;
 	}
 }

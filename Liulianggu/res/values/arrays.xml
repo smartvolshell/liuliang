@@ -9,12 +9,16 @@
     </string-array>
     <string-array name="appType">
         <item>全部</item>
-        <item>游戏</item>
-        <item>社交</item>
-        <item>其他</item>
+        <item>手机游戏</item>
+        <item>影音图像</item>
+        <item>通讯社交</item>
+        <item>阅读学习</item>
+        <item>生活地图</item>
+        <item>办公商务</item>
+        <item>购物优惠</item>
     </string-array>
     <string-array name="appSortType">
-        <item>评分</item>
+        <item>下载量</item>
         <item>流量币</item>
         <item>日期</item>
     </string-array>

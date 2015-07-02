@@ -22,6 +22,16 @@ public class AdvertisementItem implements Serializable {
 	private int appFreeTag;
 	/** 应用评价 */
 	private float evaluation;
+	/** 下载链接*/
+	private String apkUrl;
+
+	public String getApkUrl() {
+		return apkUrl;
+	}
+
+	public void setApkUrl(String apkUrl) {
+		this.apkUrl = apkUrl;
+	}
 
 	public String getAppName() {
 		return appName;
