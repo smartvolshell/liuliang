@@ -1,83 +1,184 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/topbar"
-        android:gravity="center_horizontal" >
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_bar"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/send_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/selector_btn_back"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="返回"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="流量赠送"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp" />
+            android:textColor="@color/white"
+            android:textSize="20.0sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="20.0dip"
+        android:background="@drawable/shape_bg"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="@drawable/shape_line" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="@drawable/shape_line" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50.0dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="1px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.55"
+                android:gravity="right"
+                android:paddingLeft="15.0dip"
+                android:text="赠送给："
+                android:textColor="@android:color/black"
+                android:textSize="18.0sp" />
+
+            <EditText
+                android:id="@+id/receiverNum"
+                android:layout_width="1px"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="15.0dip"
+                android:layout_weight="3"
+                android:background="@android:color/white"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:maxLength="20"
+                android:paddingLeft="10.0dip"
+                android:textColor="#ff545454"
+                android:textCursorDrawable="@null"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="@drawable/shape_line" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50.0dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="1px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.55"
+                android:gravity="right"
+                android:paddingLeft="15.0dip"
+                android:text="流量值："
+                android:textColor="@android:color/black"
+                android:textSize="18.0sp" />
+
+            <EditText
+                android:id="@+id/flowNum"
+                android:layout_width="1px"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="15.0dip"
+                android:layout_weight="3"
+                android:background="@android:color/white"
+                android:hint="请输入流量值"
+                android:maxLength="20"
+                android:paddingLeft="10.0dip"
+                android:textColor="#ff545454"
+                android:textCursorDrawable="@null"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="@drawable/shape_line" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="@drawable/shape_line" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/receiverNum"
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_toRightOf="@+id/textView1"
-        android:ems="10"
-        android:numeric="integer" >
+        android:layout_marginLeft="20.0dip"
+        android:layout_marginTop="10.0dip"
+        android:gravity="left"
+        android:orientation="horizontal" >
 
-        <requestFocus />
-    </EditText>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_tip"
+            android:textColor="@color/button_unselected"
+            android:textSize="14.0sp" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="22dp"
-        android:text="赠送给"
-        android:textSize="20dp" />
+        android:layout_marginLeft="20.0dip"
+        android:layout_marginTop="10.0dip"
+        android:gravity="left"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/sure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:text="确定" />
+        <Button
+            android:id="@+id/sure"
+            android:layout_width="84dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginRight="20.0dip"
+            android:layout_marginTop="20.0dip"
+            android:background="@drawable/op_bg_selector"
+            android:text="确认"
+            android:textColor="#ff000000"
+            android:textSize="18.0sp" />
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/receiverNum"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="29dp"
-        android:text="取消" />
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="84dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginRight="20.0dip"
+            android:layout_marginTop="20.0dip"
+            android:background="@drawable/op_bg_selector"
+            android:text="取消"
+            android:textColor="#ff000000"
+            android:textSize="18.0sp" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/flowNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/receiverNum"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:numeric="integer" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/flowNum"
-        android:layout_toRightOf="@+id/flowNum"
-        android:text="Mb" />
-
-</RelativeLayout>
+</LinearLayout>

@@ -288,13 +288,19 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 				break;
 			// 下载完成
 			case 3:
+
 				Button button = (Button) msg.obj;
+
+				button.setCompoundDrawablesWithIntrinsicBounds(getResources()
+						.getDrawable(R.drawable.open_apk), null, null, null);
 				button.setText("打开");
 				button.setClickable(true);
 				break;
 			// 下载失败，可重新下载
 			case 4:
 				Button button1 = (Button) msg.obj;
+				button1.setCompoundDrawablesWithIntrinsicBounds(getResources()
+						.getDrawable(R.drawable.down_load), null, null, null);
 				button1.setText("下载");
 				button1.setClickable(true);
 				break;
@@ -323,19 +329,14 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 	 */
 	@Override
 	public void click(View v) {
-		Toast.makeText(
-				MakeDataPage.this,
-				"listview的内部的按钮被点击了！，位置是-->" + (Integer) v.getTag() + ",内容是-->"
-						+ adapter.getItem((Integer) v.getTag()).getApkUrl(),
-				Toast.LENGTH_SHORT).show();
 
-		// new ServerOpration.apkDownLoad(adapter.getItem((Integer)
-		// v.getTag()).getApkUrl())
 		final String urlString = adapter.getItem((Integer) v.getTag())
 				.getApkUrl();
 		final Button button = (Button) v;
+		Log.e("log_tag", urlString);
 		// 初始，未下载点击，开始下载
 		if (button.getText().toString().trim().equals("下载")) {
+			button.setCompoundDrawables(null, null, null, null);
 			button.setText("下载中..");
 			button.setClickable(false);
 			Thread thread = new Thread() {

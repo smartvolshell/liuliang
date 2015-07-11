@@ -13,7 +13,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.liulianggu.infroParse.RestCharge;
+import com.liulianggu.infroParse.RestPackage;
 import com.liulianggu.infroParse.RestChargeDetail;
 import com.liulianggu.tabmenu.R;
 
@@ -134,9 +134,9 @@ public class MessageOpration extends Activity {
 				res = getSmsFromPhone();
 				if (!res.isEmpty()) {
 					RestChargeDetail resCh = new RestChargeDetail();
-					List<RestCharge> restCharges = resCh.getAllRestCharge(res);
-					for (int i = 0; i < restCharges.size(); i++) {
-						allGprs += restCharges.get(i).getRestGprs();
+					List<RestPackage> restPackages = resCh.getAllRestCharge(res);
+					for (int i = 0; i < restPackages.size(); i++) {
+						allGprs += restPackages.get(i).getRestGprs();
 					}
 					flow = allGprs;
 					getFlow = true;

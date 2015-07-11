@@ -43,6 +43,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loginpage);
+		appData = (PersonalData) getApplication();
+		serviceManager = new ServiceManager(getApplicationContext());
+		serviceManager.setNotificationIcon(R.drawable.liulianggu);//
+		// 设置推送图标
+		serviceManager.startService();
+		appData.setServiceManager(serviceManager);
 		init();
 		userName.setText("1");
 		userPasswd.setText("1");
@@ -57,7 +63,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		loadingLayout = (LinearLayout) findViewById(R.id.formlogin_layout1);
 		login.setOnClickListener(LoginActivity.this);
 		btnRegist.setOnClickListener(LoginActivity.this);
-		appData = (PersonalData) getApplication();
 
 	}
 
@@ -94,15 +99,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 									LiuLianggu.class);
 							startActivity(intent);
 							Log.e("log_tag", "111111111111");
-							// serviceManager = new ServiceManager(
-							// getApplicationContext());
-							// serviceManager
-							// .setNotificationIcon(R.drawable.notification);//
-							// // 设置推送图标
-							// serviceManager.startService();
-							// Log.e("log_tag", "111111111111");
-							// appData.setServiceManager(serviceManager);
-							// Log.e("log_tag", "111111111111");
 							LoginActivity.this.finish();
 						} catch (XMPPException e) {
 							e.printStackTrace();

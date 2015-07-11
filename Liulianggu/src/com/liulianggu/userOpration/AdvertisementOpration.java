@@ -34,17 +34,24 @@ public class AdvertisementOpration extends Activity {
 	 */
 	public List<AdvertisementItem> getData(Context mContext, String type,
 			String sorType, int sortDirection, int clo) {
+		String optypeString = "";
+		int sortType = 0;
 		if (type.equals("全部"))
-			type = "selectSome";
+			optypeString = "selectSome";
 		else {
-			sorType = type;
-			type = "selectSomeType";
+			optypeString = "selectSomeType";
+		}
+		if (sorType.equals("下载量")) {
+			sortType = 1;
+		} else if (sorType.equals("评价")) {
+			sortType = 2;
 		}
 
 		Log.e("log_tag", type + "1" + sorType + "1" + clo);
-		List<AdvertisementItem> advertisementItems = new ArrayList<AdvertisementItem>();
-		// List<AdvertisementItem> advertisementItems = new SeverOpration()
-		// .getAppInfo(mContext, type, sorType, clo);
+		// List<AdvertisementItem> advertisementItems = new
+		// ArrayList<AdvertisementItem>();
+		List<AdvertisementItem> advertisementItems = new SeverOpration()
+				.getAppInfo(mContext, optypeString, type, sortType, clo);
 
 		return advertisementItems;
 	}

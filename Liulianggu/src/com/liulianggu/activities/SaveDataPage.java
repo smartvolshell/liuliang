@@ -36,7 +36,7 @@ import com.liulianggu.adapter.NewAppListAdapter;
 import com.liulianggu.adapter.NewAppListAdapter.Callback;
 import com.liulianggu.application.PersonalData;
 import com.liulianggu.beans.AdvertisementItem;
-import com.liulianggu.infroParse.RestCharge;
+import com.liulianggu.infroParse.RestPackage;
 import com.liulianggu.infroParse.RestChargeDetail;
 import com.liulianggu.tabmenu.R;
 import com.liulianggu.userOpration.AdvertisementOpration;
@@ -51,8 +51,9 @@ import com.liulianggu.utils.SendMessageService;
  */
 public class SaveDataPage extends Activity implements OnClickListener, Callback {
 	private final Intent intent = new Intent();
-	private static int TIME_SEND = 1;
+	private static int TIME_SEND = 0;
 	private PersonalData app;
+	public static SaveDataPage saveDataPage = null;
 	// private Button btnTakeData;
 	private TextView txtShowData;
 	private TextView txtWelcome;
@@ -72,6 +73,7 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.save_data_page);
+		saveDataPage = this;
 		init();
 
 		// 监听短信收取
@@ -79,7 +81,7 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 		getContentResolver().registerContentObserver(SMS_INBOX, true,
 				smsObserver);
 		// app列表的实现
-		// getData();
+		getData();
 
 	}
 
@@ -142,9 +144,9 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 				// 读取短信
 				if (!res.isEmpty()) {
 					RestChargeDetail resCh = new RestChargeDetail();
-					List<RestCharge> restCharges = resCh.getAllRestCharge(res);
-					for (int i = 0; i < restCharges.size(); i++) {
-						allGprs += restCharges.get(i).getRestGprs();
+					List<RestPackage> restPackages = resCh.getAllRestCharge(res);
+					for (int i = 0; i < restPackages.size(); i++) {
+						allGprs += restPackages.get(i).getRestGprs();
 					}
 					Log.e("log_tag", "555");
 					FlowOpration flowOpration = new FlowOpration(
@@ -157,7 +159,6 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 						Log.e("log_tag", "777");
 						toast3.setGravity(Gravity.TOP, 0, 0);
 						toast3.show();
-						app.setGprs(app.getGprs() + allGprs);
 						txtShowData.setText(String.valueOf(app.getGprs()));
 						// Intent intent1 = new Intent(SaveDataPage.this,
 						// LiuLianggu.class);
@@ -201,7 +202,7 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 			public void run() {
 				Looper.prepare();
 				mData = new AdvertisementOpration().getData(SaveDataPage.this,
-						"全部", "日期", 2, 1);
+						"全部", "下载量", 2, 1);
 				Message message = new Message();
 				message.what = 1;
 				handler.sendMessage(message);
@@ -237,12 +238,16 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 			// 下载完成
 			case 3:
 				Button button = (Button) msg.obj;
+				button.setCompoundDrawablesWithIntrinsicBounds(getResources()
+						.getDrawable(R.drawable.open_apk), null, null, null);
 				button.setText("打开");
 				button.setClickable(true);
 				break;
 			// 下载失败，可重新下载
 			case 4:
 				Button button1 = (Button) msg.obj;
+				button1.setCompoundDrawablesWithIntrinsicBounds(getResources()
+						.getDrawable(R.drawable.down_load), null, null, null);
 				button1.setText("下载");
 				button1.setClickable(true);
 				break;
@@ -307,6 +312,9 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 				findViewById(R.id.btn_take_data).setClickable(true);
 			}
 			break;
+		case R.id.freash_flow:
+			freash();
+			break;
 		default:
 			break;
 		}
@@ -324,6 +332,7 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 		final Button button = (Button) v;
 		// 初始，未下载点击，开始下载
 		if (button.getText().toString().trim().equals("下载")) {
+			button.setCompoundDrawables(null, null, null, null);
 			button.setText("下载中..");
 			button.setClickable(false);
 			Thread thread = new Thread() {
@@ -381,4 +390,7 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 		// }
 	}
 
+	public void freash() {
+		txtShowData.setText(String.valueOf(app.getGprs()));
+	}
 }

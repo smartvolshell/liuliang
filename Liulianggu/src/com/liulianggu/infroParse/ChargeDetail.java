@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChargeDetail {
+	// 移动短信分割的分隔符
+	private String[] over = { "。", "；", "！", "？" };
+
 	/**********************
 	 * 获取文档中所有包含流量的套餐信息
 	 * 
@@ -13,7 +16,7 @@ public class ChargeDetail {
 	public List<Charge> getAllCharges(String path) {
 		List<Charge> charges = new ArrayList<Charge>();
 		TextPrasing text = new TextPrasing();
-		List<String> sentences = text.splitIntoSentence(path);
+		List<String> sentences = text.splitIntoSentence(path, over);
 		for (int i = 0; i < sentences.size(); i++) {
 			String sentence = sentences.get(i);
 			String chargeName = getChargeName(sentence);

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,12 +32,14 @@ public class SendFlows extends Activity {
 	EditText flowNum;
 	Button sure;
 	Button cancel;
+	Button backButton;
 
 	private PersonalData appData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// »•µÙ±ÍÃ‚¿∏
 		setContentView(R.layout.activity_send_flows);
 		init();
 
@@ -57,11 +60,12 @@ public class SendFlows extends Activity {
 				String phoneNum = receiverNum.getText().toString().trim();
 				FlowOpration flowOpration = new FlowOpration(
 						(PersonalData) getApplication());
-				if (true || flowOpration.sendFlow(phoneNum, flow)) {
+				if (flowOpration.sendFlow(phoneNum, flow)) {
 					// Intent intent2 = new Intent(SendFlows.this,
 					// LiuLianggu.class);
 					// startActivity(intent2);
-
+					SaveDataPage.saveDataPage.freash();
+					TakeDataPage.takeDataPage.freash();
 					appData.getServiceManager().sendFlow(phoneNum,
 							String.valueOf(flow));
 					SendFlows.this.finish();
@@ -89,6 +93,14 @@ public class SendFlows extends Activity {
 		sure = (Button) findViewById(R.id.sure);
 		cancel = (Button) findViewById(R.id.cancel);
 		appData = (PersonalData) getApplication();
+		backButton = (Button) findViewById(R.id.send_back_btn);
+		backButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				SendFlows.this.finish();
+			}
+		});
 	}
 
 }

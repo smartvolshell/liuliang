@@ -10,27 +10,29 @@ import java.util.List;
  *
  */
 public class RestChargeDetail {
+	// 移动短信分割的分隔符
+	private String[] over = { "。", "；", "！", "？" };
 
-	public List<RestCharge> getAllRestCharge(String path) {
-		List<RestCharge> restCharges = new ArrayList<RestCharge>();
+	public List<RestPackage> getAllRestCharge(String path) {
+		List<RestPackage> restPackages = new ArrayList<RestPackage>();
 		// 把短信中信息分解成句
 		TextPrasing text = new TextPrasing();
-		List<String> sentences = text.splitIntoSentence(path);
+		List<String> sentences = text.splitIntoSentence(path, over);
 		// 逐句分析，查找其中包含流量的套餐信息
 		for (int i = 0; i < sentences.size(); i++) {
 			String sentence = sentences.get(i);
 			String chargeName = getChargeName(sentence);
 			if (!chargeName.isEmpty()) {
-				RestCharge restCharge = new RestCharge();
-				restCharge.setChargeName(chargeName);
-				restCharge.setRestGprs(getRestGprs(sentence));
-				restCharge.setLastdate(getLastDate(sentence));
-				if (restCharge.getLastdate() != -1
-						&& restCharge.getRestGprs() != -1)
-					restCharges.add(restCharge);
+				RestPackage restPackage = new RestPackage();
+				restPackage.setChargeName(chargeName);
+				restPackage.setRestGprs(getRestGprs(sentence));
+				restPackage.setLastDate(getLastDate(sentence));
+				if (restPackage.getLastDate() != -1
+						&& restPackage.getRestGprs() != -1)
+					restPackages.add(restPackage);
 			}
 		}
-		return restCharges;
+		return restPackages;
 	}
 
 	/*****************

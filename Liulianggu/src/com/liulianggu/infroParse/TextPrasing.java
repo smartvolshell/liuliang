@@ -13,7 +13,7 @@ public class TextPrasing {
 	 * 
 	 * @param articlePath
 	 */
-	public List<String> splitIntoSentence(String articlePath) {
+	public List<String> splitIntoSentence(String articlePath, String[] over) {
 		List<String> infor = new ArrayList<String>();
 		try {
 			String encoding = "UTF-8";
@@ -25,7 +25,6 @@ public class TextPrasing {
 			BufferedReader bufferedReader = new BufferedReader(read);
 			int word = 0;
 			String senten = "";
-			String[] over = { "¡£", "£»", "£¡", "£¿" };
 			while ((word = bufferedReader.read()) != -1) {
 				if (((char) word) != '\r' && ((char) word) != '\n') {
 					boolean has = false;

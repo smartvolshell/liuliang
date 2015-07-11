@@ -81,7 +81,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#fd8d8d"
-            android:text="死永超" >
+            android:text="流量谷，开启流量的全新时代" >
         </Button>
     </LinearLayout>
 

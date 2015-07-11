@@ -26,13 +26,15 @@ public class TakeDataPage extends Activity implements OnClickListener {
 	private EditText get;
 	private TextView all;
 	private PersonalData app;
-	private Button cancel;
+	// private Button cancel;
 	private Button ok;
+	public static TakeDataPage takeDataPage = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.take_data_page);
+		takeDataPage = this;
 		init();
 
 	}
@@ -46,10 +48,10 @@ public class TakeDataPage extends Activity implements OnClickListener {
 		get = (EditText) findViewById(R.id.qcll);
 		ok = (Button) findViewById(R.id.get_ok);
 		all = (TextView) findViewById(R.id.kyll);
-		cancel = (Button) findViewById(R.id.cancel_ok);
+		// cancel = (Button) findViewById(R.id.cancel_ok);
 		all.setText(gprs);
 		ok.setOnClickListener(TakeDataPage.this);
-		cancel.setOnClickListener(TakeDataPage.this);
+		// cancel.setOnClickListener(TakeDataPage.this);
 	}
 
 	@Override
@@ -71,11 +73,14 @@ public class TakeDataPage extends Activity implements OnClickListener {
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
-		case R.id.cancel_ok:
-			
+
 		default:
 			break;
 		}
+	}
+
+	public void freash() {
+		all.setText(String.valueOf(app.getGprs()));
 	}
 
 	@Override

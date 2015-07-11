@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:background="@drawable/topbar"
+        android:background="@drawable/title_bar"
         android:gravity="center_horizontal" >
 
         <TextView
@@ -24,8 +24,8 @@
         android:id="@+id/play_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="在这里赚取流量" />
+        android:text="在这里赚取流量"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="fill_parent"

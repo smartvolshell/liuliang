@@ -99,14 +99,16 @@ public class NewAppListAdapter extends BaseAdapter implements OnClickListener {
 		holder.ratingBar.setRating(mData.get(position).getEvaluation());
 		// app名称
 		holder.mChildName = (TextView) convertView.findViewById(R.id.item_name);
-		holder.mChildName.setText(mData.get(position).getAppName() + "("
-				+ mData.get(position).getAppDownLoadVal() + ")");
+		holder.mChildName.setText(mData.get(position).getAppName());
 		// app信息
 		holder.mDetail = (TextView) convertView.findViewById(R.id.item_detail);
-		holder.mDetail.setText(mData.get(position).getAppMsg());
+		holder.mDetail.setText(mData.get(position).getAppType());
+		holder.downTimes = (TextView) convertView.findViewById(R.id.down_times);
+		holder.downTimes.setText("(" + mData.get(position).getAppDownLoadVal()
+				+ ")");
 		// app下载
 		holder.downLoadButton = (Button) convertView
-				.findViewById(R.id.app_down_load);
+				.findViewById(R.id.app_down_load1);
 		holder.downLoadButton.setOnClickListener(this);
 		holder.downLoadButton.setTag(position);
 		// + mData.get(position).getAppDownLoadVal()
@@ -127,6 +129,7 @@ public class NewAppListAdapter extends BaseAdapter implements OnClickListener {
 		TextView mChildName;
 		TextView mDetail;
 		RatingBar ratingBar;
+		TextView downTimes;
 		Button downLoadButton;
 	}
 

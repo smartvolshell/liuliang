@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lavenderblush"
+    android:background="@color/white"
     android:descendantFocusability="blocksDescendants"
     android:minHeight="@dimen/min_Height"
     android:orientation="horizontal" >
@@ -12,12 +12,14 @@
         android:layout_width="@dimen/image_width"
         android:layout_height="@dimen/image_width"
         android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="2dip"
         android:layout_marginRight="10dip" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/image_width"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/img"
         android:orientation="vertical" >
 
@@ -42,16 +44,31 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
-        <RatingBar
-            android:id="@+id/rating"
-            style="?android:attr/ratingBarStyleSmall"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:numStars="5"
-            android:stepSize="0.5" >
-        </RatingBar>
+            android:layout_height="0.0dip"
+            android:layout_weight="1" >
+
+            <RatingBar
+                android:id="@+id/rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:numStars="5"
+                android:stepSize="0.5" >
+            </RatingBar>
+
+            <TextView
+                android:id="@+id/down_times"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_toRightOf="@id/rating"
+                android:gravity="center_vertical"
+                android:textColor="@color/black" />
+        </RelativeLayout>
     </LinearLayout>
 
     <Button
@@ -60,6 +77,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="下载" />
+        android:text="下载"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/app_down_load1"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_btn"
+        android:drawableLeft="@drawable/down_load"
+        android:drawablePadding="3dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="5dp"
+        android:text="下载"
+        android:textColor="#57AF4E"
+        android:textSize="13sp" />
 
 </RelativeLayout>

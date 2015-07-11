@@ -24,6 +24,16 @@ public class AdvertisementItem implements Serializable {
 	private float evaluation;
 	/** œ¬‘ÿ¡¥Ω”*/
 	private String apkUrl;
+	private int reward;
+
+
+	public int getReward() {
+		return reward;
+	}
+
+	public void setReward(int reward) {
+		this.reward = reward;
+	}
 
 	public String getApkUrl() {
 		return apkUrl;

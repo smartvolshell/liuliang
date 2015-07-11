@@ -161,7 +161,7 @@ public class FriendsOpration extends Activity {
 				friendItem.setFriendType(entry.getType().name());
 				friendItem.setMessage(groupNameString + ";"
 						+ entry.getUser().split("@")[0] + ";" + entry.getName()
-						+ ";" + entry.getType().name());
+						+ ";");
 				allFriendItems.add(friendItem);
 			}
 			groupNameStrings.add(groupNameString);

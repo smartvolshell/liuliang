@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:background="@drawable/topbar"
+            android:background="@drawable/title_bar"
             android:gravity="center_horizontal" >
 
             <TextView
@@ -68,37 +68,10 @@
                             android:background="@drawable/card_avatar_bar" >
 
                             <TextView
-                                android:id="@+id/user_post"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="103dp"
-                                android:layout_marginTop="4dp"
-                                android:ellipsize="end"
-                                android:singleLine="true"
-                                android:text="@string/user_rank"
-                                android:textColor="@color/gold"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/user_book"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/user_post"
-                                android:layout_marginLeft="103dp"
-                                android:layout_marginTop="4dp"
-                                android:ellipsize="end"
-                                android:singleLine="true"
-                                android:text="@string/user_class"
-                                android:textColor="#A1A1A1"
-                                android:textSize="12sp" />
-
-                            <TextView
                                 android:id="@+id/attention_user"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:layout_alignTop="@+id/user_post"
-                                android:background="@drawable/selector_btn"
                                 android:drawableLeft="@drawable/add"
                                 android:drawablePadding="3dp"
                                 android:gravity="center_vertical"
@@ -106,10 +79,26 @@
                                 android:paddingLeft="8dp"
                                 android:paddingRight="8dp"
                                 android:paddingTop="5dp"
-                                android:text="@string/add_attention"
+                                android:text=""
                                 android:textColor="#57AF4E"
                                 android:textSize="13sp" />
 
+                            <TextView
+                                android:id="@+id/user_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/attention_user"
+                                android:layout_alignBottom="@+id/attention_user"
+                                android:layout_toLeftOf="@+id/attention_user"
+                                android:ellipsize="end"
+                                android:shadowColor="@android:color/black"
+                                android:shadowDx="3.0"
+                                android:shadowDy="3.0"
+                                android:shadowRadius="5.0"
+                                android:singleLine="true"
+                                android:text="疯狂的流量"
+                                android:textColor="@color/gold"
+                                android:textSize="20sp" />
                         </RelativeLayout>
 
                         <ImageView
@@ -122,22 +111,6 @@
                             android:padding="1px"
                             android:src="@drawable/liulianggu" />
                         <!-- 用户名 -->
-
-                        <TextView
-                            android:id="@+id/user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="13dp"
-                            android:layout_toRightOf="@id/user_avatar"
-                            android:ellipsize="end"
-                            android:shadowColor="@android:color/black"
-                            android:shadowDx="3.0"
-                            android:shadowDy="3.0"
-                            android:shadowRadius="5.0"
-                            android:singleLine="true"
-                            android:text="@string/user_name"
-                            android:textColor="@color/gold"
-                            android:textSize="20sp" />
                         <!-- 中间分割界限 -->
 
                         <FrameLayout

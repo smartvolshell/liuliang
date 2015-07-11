@@ -201,27 +201,30 @@ public class RegistActivity extends Activity implements OnClickListener {
 			Toast.makeText(getApplicationContext(), "验证码填写不正确",
 					Toast.LENGTH_SHORT).show();
 		} else {
-			Thread thread = new Thread() {
 
-				public void run() {
-					Looper.prepare();
-					UserInfo user = new UserInfo();
-					user.setNickName(NickName1);
-					user.setPhoneNum(PhoneNum1);
-					user.setPassword(psw11);
-					UserOpration userOpration = new UserOpration(
-							(PersonalData) getApplication());
-					if (userOpration.userRegist(user)) {
-						Toast.makeText(getApplicationContext(), "注册成功",
-								Toast.LENGTH_SHORT).show();
-						RegistActivity.this.finish();
-					} else {
-						Toast.makeText(getApplicationContext(), "注册失败",
-								Toast.LENGTH_SHORT).show();
-					}
-				};
-			};
-			thread.start();
+			UserInfo user = new UserInfo();
+			user.setNickName(NickName1);
+			user.setPhoneNum(PhoneNum1);
+			user.setPassword(psw11);
+			UserOpration userOpration = new UserOpration(
+					(PersonalData) getApplication());
+			if (userOpration.userRegist(user)) {
+				Toast.makeText(getApplicationContext(), "注册成功",
+						Toast.LENGTH_SHORT).show();
+				RegistActivity.this.finish();
+			} else {
+				Toast.makeText(getApplicationContext(), "注册失败",
+						Toast.LENGTH_SHORT).show();
+			}
+
+			// Thread thread = new Thread() {
+			//
+			// public void run() {
+			// Looper.prepare();
+			//
+			// };
+			// };
+			// thread.start();
 		}
 	}
 }

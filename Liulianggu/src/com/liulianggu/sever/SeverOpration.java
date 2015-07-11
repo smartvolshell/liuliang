@@ -42,7 +42,7 @@ import android.util.Log;
 
 public class SeverOpration {
 
-	private final String KEY = "http://172.19.29.76:8088/liulianggu/";
+	private final String KEY = "http://192.168.252.5:8088/liulianggu/";
 
 	/**********
 	 * 链接服务器预处理方法
@@ -149,6 +149,27 @@ public class SeverOpration {
 		return gprs;
 	}
 
+	/***************
+	 * 赠送流量
+	 * 
+	 * @param phone
+	 * @param getPhoneNum
+	 * @param flow
+	 * @return
+	 */
+	public boolean transaction(String phone, String getPhoneNum, float flow) {
+		boolean flag = true;
+		pretreatment();
+		String keyString = KEY + "TransactionInfo.action?type=insert&phoneNum="
+				+ phone + "&toPhoneNum=" + getPhoneNum + "&transVolume=" + flow;
+		// http://localhost:8088/liulianggu/TransactionInfo.action?type=insert&phoneNum=15763941111&toPhoneNum=1122&transVolume=10
+
+		String result = getResult(keyString);
+		if (result.replace("\n", "").equals("error"))
+			return false;
+		return flag;
+	}
+
 	/******************
 	 * 判断是否提取成功
 	 * 
@@ -159,8 +180,8 @@ public class SeverOpration {
 		boolean flag = false;
 		pretreatment();
 		String keyString = KEY
-				+ "MobileDataInfo.action?type=update&dataVolume=" + takeGprs
-				+ "&phoneNum=" + phoneNum;
+				+ "MobileDataInfo.action?type=update&dataVolume="
+				+ (0 - takeGprs) + "&phoneNum=" + phoneNum;
 		// http://172.20.41.41:8088/liulianggu/MobileDataInfo.action?type=update&dataVolume=3
 		String result = getResult(keyString);
 		Log.e("log_tag", result);
@@ -181,13 +202,14 @@ public class SeverOpration {
 		return takeFlow(phoneNum, 0 - saveGprs);
 	}
 
-	public List<AdvertisementItem> getAppInfo(Context mContext, String type,
-			String sorType, int clo) {
+	public List<AdvertisementItem> getAppInfo(Context mContext, String opType,
+			String appType, int sorType, int clo) {
 		List<AdvertisementItem> advertisementItems = new ArrayList<AdvertisementItem>();
 
 		pretreatment();
-		String keyString = KEY + "AppInfo.action?type=" + type + "&appType="
-				+ sorType + "&clo=" + clo;
+		String keyString = KEY + "AppInfo.action?type=" + opType
+				+ String.valueOf(sorType) + "&appType=" + appType + "&clo="
+				+ clo;
 		// http://172.20.41.58:8088/liulianggu/AppInfo.action?type=selectSome&appType='手机游戏'&clo=1
 		String result = getResult(keyString);
 		if (result.replace("\n", "").equals("error")) {
@@ -208,6 +230,7 @@ public class SeverOpration {
 				advertisementItem.setAppMsg(jsonObject.getString("appMsg"));
 				advertisementItem.setAppType(jsonObject.getString("appType"));
 				advertisementItem.setApkUrl(jsonObject.getString("apkUrl"));
+				advertisementItem.setReward(jsonObject.getInt("reward"));
 				advertisementItem.setEvaluation(Float.parseFloat(jsonObject
 						.getString("evaluation")));
 				advertisementItem.setAppDownLoadVal(jsonObject
@@ -315,7 +338,8 @@ public class SeverOpration {
 		connection.setConnectTimeout(10 * 1000); // 超时时间
 		connection.connect(); // 连接
 		Log.e("log_tag", "链接");
-		if (connection.getResponseCode() == 200) { // 返回的响应码200,是成功.
+		int a = connection.getResponseCode();
+		if (a == 200) { // 返回的响应码200,是成功.
 			// Log.e("log_tag", "链接");
 			// // File file = new File("/mnt/" + path); // 这里我是手写了。建议大家用自带的类
 			// Log.e("log_tag", "链接");
@@ -326,14 +350,16 @@ public class SeverOpration {
 			String dirName = Environment.getExternalStorageDirectory()
 					+ "/MyDownload/";
 			File f = new File(dirName);
-			Log.e("log_tag", "链接");
+			Log.e("log_tag", dirName);
 			if (!f.exists()) {
 				f.mkdir();
 				Log.e("log_tag", "链接1111111");
 			}
 			Log.e("log_tag", "链接");
+			Log.e("log_tag", path);
 			String newFilename = path.substring(path.lastIndexOf("/") + 1);
 			newFilename = dirName + newFilename;
+			Log.e("log_tag", newFilename);
 			File file = new File(newFilename);
 			Log.e("log_tag", "链接");
 			if (file.exists()) {
@@ -360,6 +386,9 @@ public class SeverOpration {
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 			fileOutputStream.write(data); // 记得关闭输入流
 			fileOutputStream.close();
+		} else {
+			Log.e("log_tag", "" + a);
+			return false;
 		}
 		return flag;
 	}
