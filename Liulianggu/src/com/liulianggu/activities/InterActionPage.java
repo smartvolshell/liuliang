@@ -435,8 +435,8 @@ public class InterActionPage extends Activity implements OnChildClickListener,
 		switch (v.getId()) {
 		case R.id.message:
 			Toast.makeText(getApplicationContext(),
-					toUserJid.split("@")[0] + "已同意添加" + addResponseTime,
-					Toast.LENGTH_SHORT).show();
+					toUserJid.split("@")[0] + "已同意添加您为好友", Toast.LENGTH_SHORT)
+					.show();
 			mesgButton.setVisibility(View.GONE);
 			freshList();
 			break;
