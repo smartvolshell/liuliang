@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.R.raw;
+import android.util.Log;
 
 public class PhoneNumType {
 
@@ -31,10 +32,14 @@ public class PhoneNumType {
 	private static Map<String, List<String>> phoneTypes = new HashMap<String, List<String>>();
 
 	public static String getNumType(String phoneNumber) {
+		phoneNumber = phoneNumber.replace("-", "");
+		Log.e("phoenNum", phoneNumber);
 		String type = "";
 		initList();
 		int start = phoneNumber.indexOf('1');
 		start = start > 0 ? start : 0;
+		if (start >= 3)
+			return OTHERTYPE;
 		String token = phoneNumber.substring(start, start + 3);
 		if (start != 0 && start != 3)
 			return OTHERTYPE;

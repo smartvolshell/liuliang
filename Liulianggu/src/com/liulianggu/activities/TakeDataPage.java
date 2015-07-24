@@ -66,9 +66,14 @@ public class TakeDataPage extends Activity implements OnClickListener {
 				Toast.makeText(getApplicationContext(), "用户未登陆，请登陆后再试",
 						Toast.LENGTH_SHORT).show();
 				break;
-			}
-			if (flowOpration.takeFlow(Float.parseFloat(get.getText().toString()
-					.trim()))) {
+			} else if (get.getText().toString().trim().isEmpty()) {
+				Toast.makeText(getApplicationContext(), "请输入正确的流量值",
+						Toast.LENGTH_SHORT).show();
+			} else if (flowOpration.takeFlow(Float.parseFloat(get.getText()
+					.toString().trim()))) {
+				Toast.makeText(getApplicationContext(), "流量提取成功！",
+						Toast.LENGTH_SHORT).show();
+			} else {
 				Toast.makeText(getApplicationContext(), "流量提取失败！",
 						Toast.LENGTH_SHORT).show();
 			}

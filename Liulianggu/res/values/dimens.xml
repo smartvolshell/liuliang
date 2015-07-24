@@ -5,6 +5,7 @@
     <dimen name="padding_large">16dp</dimen>
     <dimen name="min_Height">65dip</dimen>
     <dimen name="image_width">60dip</dimen>
+    <dimen name="group_item_height">55dip</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-</resources>
+</resources>

@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@drawable/title_bar"
         android:orientation="vertical" >
 
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="流量赠送"
+            android:text="流量提取"
             android:textColor="@color/white"
             android:textSize="20.0sp" />
     </RelativeLayout>
@@ -90,8 +90,8 @@
                 android:layout_width="1px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.55"
-                android:paddingLeft="10dip"
                 android:gravity="left"
+                android:paddingLeft="10dip"
                 android:text="取出流量："
                 android:textColor="@android:color/black"
                 android:textSize="18.0sp" />

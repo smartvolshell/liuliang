@@ -110,14 +110,15 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
 		convertView.setTag(R.id.childPosion, childPosition);
 		ChildViewHolder holder = new ChildViewHolder();
 		holder.mIcon = (ImageView) convertView.findViewById(R.id.img);
-		holder.mIcon.setBackgroundResource(R.drawable.liulianggu);
+		holder.mIcon.setBackgroundResource(R.drawable.head_bg);
 		holder.mChildName = (TextView) convertView.findViewById(R.id.item_name);
-		holder.mChildName.setText(getChild(groupPosition, childPosition)
+		holder.mChildName.setText((getChild(groupPosition, childPosition)
 				.getNote().isEmpty() ? getChild(groupPosition, childPosition)
 				.getNickName() : getChild(groupPosition, childPosition)
-				.getNote()
+				.getNote())
 				+ "("
-				+ getChild(groupPosition, childPosition).getPhoneNum() + ")");
+				+ getChild(groupPosition, childPosition).getPhoneNum()
+				+ ")");
 		holder.mDetail = (TextView) convertView.findViewById(R.id.item_detail);
 		holder.mDetail.setText(getChild(groupPosition, childPosition)
 				.getMessage());

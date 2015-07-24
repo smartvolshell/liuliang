@@ -9,7 +9,7 @@ import java.util.List;
  * @author xyc
  *
  */
-public class MobilePhone implements SMSParsing {
+public class MobilePhone implements SMSParsingInterface, SendMessageInterface {
 	// 移动短信分割的分隔符
 	private String[] moblieOver = { "。", "；", "！", "？" };
 
@@ -124,6 +124,16 @@ public class MobilePhone implements SMSParsing {
 		if (!str.equals(""))
 			date = Integer.parseInt(str);
 		return date;
+	}
+
+	@Override
+	public String getOperatorNum() {
+		return "10086";
+	}
+
+	@Override
+	public String getOperatorMessage() {
+		return "3";
 	}
 
 }

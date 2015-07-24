@@ -49,7 +49,7 @@ import com.liulianggu.utils.XmppTool;
  */
 public class InterActionPage extends Activity implements OnChildClickListener,
 		OnItemLongClickListener, android.view.View.OnClickListener {
-	private MyListView mListView = null;
+	private ExpandableListView mListView = null;
 	private ExpandAdapter mAdapter = null;
 	private PersonalData appData;
 	// 好友数据
@@ -87,7 +87,7 @@ public class InterActionPage extends Activity implements OnChildClickListener,
 		appData.getServiceManager().setAlias(
 				((PersonalData) getApplication()).getPhoneNum());
 		// ListView的构造
-		mListView = (MyListView) findViewById(R.id.expendableListView1);
+		mListView = (ExpandableListView) findViewById(R.id.expendableListView1);
 		mListView.setLayoutParams(new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		mListView.setGroupIndicator(getResources().getDrawable(
@@ -256,6 +256,9 @@ public class InterActionPage extends Activity implements OnChildClickListener,
 													childPosition)
 											.getPhoneNum())) {
 										resultString = "删除成功";
+										addUserString = "";
+										addResponseTime = 0;
+										freshList();
 									} else {
 										resultString = "删除失败";
 									}
@@ -287,6 +290,7 @@ public class InterActionPage extends Activity implements OnChildClickListener,
 													.getText().toString()
 													.trim())) {
 										resultString = "修改成功";
+										freshList();
 									} else {
 										resultString = "修改失败";
 									}

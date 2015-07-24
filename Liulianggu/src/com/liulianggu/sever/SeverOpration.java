@@ -42,7 +42,7 @@ import android.util.Log;
 
 public class SeverOpration {
 
-	private final String KEY = "http://192.168.252.5:8088/liulianggu/";
+	private final String KEY = "http://172.20.51.127:8088/liulianggu/";
 
 	/**********
 	 * 链接服务器预处理方法
@@ -66,14 +66,14 @@ public class SeverOpration {
 	 */
 	public UserInfo getUserInfo(String telNum, String psw) {
 		UserInfo userInfo = new UserInfo();
-		if (telNum.equals("1") && psw.equals("1")) {
-			userInfo.setHeadPortrait("");
-			userInfo.setNickName("帅哥");
-			userInfo.setPassword(psw);
-			userInfo.setPhoneNum(telNum);
-			userInfo.setUserDegree(1);
-			return userInfo;
-		}
+		// if (telNum.equals("1") && psw.equals("1")) {
+		// userInfo.setHeadPortrait("");
+		// userInfo.setNickName("帅哥");
+		// userInfo.setPassword(psw);
+		// userInfo.setPhoneNum(telNum);
+		// userInfo.setUserDegree(1);
+		// return userInfo;
+		// }
 		pretreatment();
 		String keyString = KEY + "UserInfo.action?phoneNum=" + telNum
 				+ "&password=" + psw;
@@ -213,7 +213,7 @@ public class SeverOpration {
 		// http://172.20.41.58:8088/liulianggu/AppInfo.action?type=selectSome&appType='手机游戏'&clo=1
 		String result = getResult(keyString);
 		if (result.replace("\n", "").equals("error")) {
-			Log.e("log_tag", "2222222222");
+			Log.e("log_tag", "获取到的数据错误");
 			return null;
 		}
 		try {
@@ -223,6 +223,7 @@ public class SeverOpration {
 				AdvertisementItem advertisementItem = new AdvertisementItem();
 
 				String imageUrl = KEY + jsonObject.getString("appIcon");
+				Log.e("appImage", imageUrl);
 				advertisementItem.setImag(BitmapUtil.small(mContext,
 						getBitmap(imageUrl)));
 				advertisementItem.setAppIcon(jsonObject.getString("appIcon"));
@@ -334,6 +335,7 @@ public class SeverOpration {
 	public boolean apkDownLoad(String path) throws IOException {
 		boolean flag = true;
 		URL url = new URL(KEY + path);
+		Log.e("log_down", url.toString());
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setConnectTimeout(10 * 1000); // 超时时间
 		connection.connect(); // 连接

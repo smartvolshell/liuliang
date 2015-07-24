@@ -38,6 +38,7 @@ import com.liulianggu.application.PersonalData;
 import com.liulianggu.beans.AdvertisementItem;
 import com.liulianggu.infroParse.RestPackage;
 import com.liulianggu.infroParse.RestChargeDetail;
+import com.liulianggu.sever.SeverOpration;
 import com.liulianggu.tabmenu.R;
 import com.liulianggu.userOpration.AdvertisementOpration;
 import com.liulianggu.userOpration.FlowOpration;
@@ -144,7 +145,8 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 				// 读取短信
 				if (!res.isEmpty()) {
 					RestChargeDetail resCh = new RestChargeDetail();
-					List<RestPackage> restPackages = resCh.getAllRestCharge(res);
+					List<RestPackage> restPackages = resCh
+							.getAllRestCharge(res);
 					for (int i = 0; i < restPackages.size(); i++) {
 						allGprs += restPackages.get(i).getRestGprs();
 					}
@@ -227,9 +229,14 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 						AdvertisementItem item = adapter.getItem(position);
 						Intent intent1 = new Intent(SaveDataPage.this,
 								AdvertisementDetial.class);
-						intent1.putExtra("oldRating", item.getEvaluation());
-						intent1.putExtra("detail", item.getAppName());
-						intent1.putExtra("title", item.getAppMsg());
+						// Bundle bundle = new Bundle();
+						// bundle.putParcelable("appDetail", item);
+						// intent1.putExtras(bundle);
+						intent1.putExtra("appRating", item.getEvaluation());
+						intent1.putExtra("appName", item.getAppName());
+						intent1.putExtra("appMsg", item.getAppMsg());
+						intent1.putExtra("appType", item.getAppType());
+						intent1.putExtra("appUrl", item.getApkUrl());
 						startActivity(intent1);
 
 					}
@@ -242,6 +249,10 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 						.getDrawable(R.drawable.open_apk), null, null, null);
 				button.setText("打开");
 				button.setClickable(true);
+				FlowOpration flowOpration = new FlowOpration(
+						(PersonalData) getApplication());
+				if (flowOpration.saveFlow(2))
+					freash();
 				break;
 			// 下载失败，可重新下载
 			case 4:
@@ -391,6 +402,9 @@ public class SaveDataPage extends Activity implements OnClickListener, Callback 
 	}
 
 	public void freash() {
+		app.setGprs(new SeverOpration().getGprs(app.getPhoneNum()));
 		txtShowData.setText(String.valueOf(app.getGprs()));
+		if (TakeDataPage.takeDataPage != null)
+			TakeDataPage.takeDataPage.freash();
 	}
 }

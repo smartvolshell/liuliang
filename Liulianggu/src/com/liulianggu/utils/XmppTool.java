@@ -33,7 +33,7 @@ import org.jivesoftware.smackx.search.UserSearch;
 public class XmppTool {
 
 	private static XMPPConnection con = null;
-	private static String ipString = "172.20.10.183";
+	private static String ipString = "172.20.51.183";
 
 	private static void openConnection() {
 		try {

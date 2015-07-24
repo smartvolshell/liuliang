@@ -9,7 +9,7 @@ import java.util.List;
  * @author xyc
  *
  */
-public class TelecomPhone implements SMSParsing {
+public class TelecomPhone implements SMSParsingInterface, SendMessageInterface {
 	// 电信短信的分割符
 	String[] telecomeOver = { "。", ";", "！", "？", "." };
 
@@ -75,6 +75,16 @@ public class TelecomPhone implements SMSParsing {
 	@Override
 	public int getStartDate(String sentence) {
 		return 1;
+	}
+
+	@Override
+	public String getOperatorNum() {
+		return "10001";
+	}
+
+	@Override
+	public String getOperatorMessage() {
+		return "108";
 	}
 
 }

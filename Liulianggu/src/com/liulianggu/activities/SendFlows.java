@@ -64,8 +64,8 @@ public class SendFlows extends Activity {
 					// Intent intent2 = new Intent(SendFlows.this,
 					// LiuLianggu.class);
 					// startActivity(intent2);
-					SaveDataPage.saveDataPage.freash();
-					TakeDataPage.takeDataPage.freash();
+					if (SaveDataPage.saveDataPage != null)
+						SaveDataPage.saveDataPage.freash();
 					appData.getServiceManager().sendFlow(phoneNum,
 							String.valueOf(flow));
 					SendFlows.this.finish();

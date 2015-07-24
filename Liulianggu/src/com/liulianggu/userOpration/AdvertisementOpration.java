@@ -47,7 +47,7 @@ public class AdvertisementOpration extends Activity {
 			sortType = 2;
 		}
 
-		Log.e("log_tag", type + "1" + sorType + "1" + clo);
+		Log.e("log_tag", type + "::" + sorType + "::" + clo);
 		// List<AdvertisementItem> advertisementItems = new
 		// ArrayList<AdvertisementItem>();
 		List<AdvertisementItem> advertisementItems = new SeverOpration()

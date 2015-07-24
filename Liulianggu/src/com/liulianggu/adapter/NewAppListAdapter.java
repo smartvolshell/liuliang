@@ -99,10 +99,11 @@ public class NewAppListAdapter extends BaseAdapter implements OnClickListener {
 		holder.ratingBar.setRating(mData.get(position).getEvaluation());
 		// app√˚≥∆
 		holder.mChildName = (TextView) convertView.findViewById(R.id.item_name);
-		holder.mChildName.setText(mData.get(position).getAppName());
+		holder.mChildName.setText(mData.get(position).getAppName() + "--"
+				+ mData.get(position).getAppType());
 		// app–≈œ¢
 		holder.mDetail = (TextView) convertView.findViewById(R.id.item_detail);
-		holder.mDetail.setText(mData.get(position).getAppType());
+		holder.mDetail.setText(mData.get(position).getAppMsg());
 		holder.downTimes = (TextView) convertView.findViewById(R.id.down_times);
 		holder.downTimes.setText("(" + mData.get(position).getAppDownLoadVal()
 				+ ")");

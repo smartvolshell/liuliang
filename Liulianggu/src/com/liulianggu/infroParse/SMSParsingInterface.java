@@ -8,7 +8,7 @@ import java.util.List;
  * @author xyc
  *
  */
-public interface SMSParsing {
+public interface SMSParsingInterface {
 	/**
 	 * 获取信息内所有的套餐信息
 	 * 

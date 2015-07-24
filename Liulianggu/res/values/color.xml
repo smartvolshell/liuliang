@@ -298,4 +298,7 @@
     <color name="black">#000000</color>
     <!-- 黑色 -->
 
+    <color name="light_black">#777777</color>
+    <!-- 黑色 -->
+
 </resources>

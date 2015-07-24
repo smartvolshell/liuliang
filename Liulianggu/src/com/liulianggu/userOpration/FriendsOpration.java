@@ -29,6 +29,7 @@ import com.liulianggu.beans.Friends;
 import com.liulianggu.sever.SeverOpration;
 import com.liulianggu.tabmenu.R;
 import com.liulianggu.utils.PhoneNumType;
+import com.liulianggu.utils.XmppService;
 import com.liulianggu.utils.XmppTool;
 
 public class FriendsOpration extends Activity {
@@ -53,7 +54,8 @@ public class FriendsOpration extends Activity {
 	 * @return
 	 */
 	public boolean deleteFriend(String phoneNum) {
-		return true;
+		return XmppService.removeUser(XmppTool.getConnection().getRoster(),
+				phoneNum + "@localhost");
 	}
 
 	/*****************
@@ -64,7 +66,8 @@ public class FriendsOpration extends Activity {
 	 * @return
 	 */
 	public boolean changeNickName(String phoneNum, String newNickName) {
-		return true;
+		return XmppService.changeUserName(XmppTool.getConnection().getRoster(),
+				phoneNum + "@localhost", newNickName);
 	}
 
 	/***************
@@ -159,9 +162,7 @@ public class FriendsOpration extends Activity {
 				friendItem.setPhoneNum(entry.getUser().split("@")[0]);
 				friendItem.setNickName(entry.getName());
 				friendItem.setFriendType(entry.getType().name());
-				friendItem.setMessage(groupNameString + ";"
-						+ entry.getUser().split("@")[0] + ";" + entry.getName()
-						+ ";");
+				friendItem.setMessage(groupNameString);
 				allFriendItems.add(friendItem);
 			}
 			groupNameStrings.add(groupNameString);

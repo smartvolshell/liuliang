@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/friend_child_item_back"
     android:descendantFocusability="blocksDescendants"
     android:minHeight="@dimen/min_Height"
     android:orientation="horizontal" >
@@ -11,8 +11,8 @@
         android:id="@+id/img"
         android:layout_width="@dimen/image_width"
         android:layout_height="@dimen/image_width"
-        android:layout_gravity="center_vertical"
         android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="2dip"
         android:layout_marginRight="10dip" />
 

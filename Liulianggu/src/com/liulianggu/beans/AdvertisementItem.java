@@ -3,11 +3,11 @@ package com.liulianggu.beans;
 import java.io.Serializable;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 public class AdvertisementItem implements Serializable {
-	/** 应用图片 */
-	private Bitmap imag;
+
 	/** 应用名称 */
 	private String appName;
 	/** 应用图片url */
@@ -22,10 +22,11 @@ public class AdvertisementItem implements Serializable {
 	private int appFreeTag;
 	/** 应用评价 */
 	private float evaluation;
-	/** 下载链接*/
+	/** 下载链接 */
 	private String apkUrl;
 	private int reward;
-
+	/** 应用图片 */
+	private Bitmap imag;
 
 	public int getReward() {
 		return reward;
@@ -107,4 +108,31 @@ public class AdvertisementItem implements Serializable {
 		this.evaluation = evaluation;
 	}
 
+	//
+	// public static final Parcelable.Creator<AdvertisementItem> CREATOR = new
+	// Parcelable.Creator<AdvertisementItem>() {
+	// public AdvertisementItem createFromParcel(Parcel in) {
+	// return new AdvertisementItem(in);
+	// }
+	//
+	// public AdvertisementItem[] newArray(int size) {
+	// return new AdvertisementItem[size];
+	// }
+	// };
+	//
+	// public AdvertisementItem() {
+	//
+	// }
+	//
+	// public AdvertisementItem(Parcel in) {
+	// appName = in.readString();
+	// appIcon = in.readString();
+	// appMsg = in.readString();
+	// appDownLoadVal = in.readInt();
+	// appType = in.readString();
+	// appFreeTag = in.readInt();
+	// evaluation = in.readFloat();
+	// apkUrl = in.readString();
+	// reward = in.readInt();
+	// }
 }

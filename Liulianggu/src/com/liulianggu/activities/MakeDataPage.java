@@ -42,10 +42,12 @@ import android.widget.Toast;
 
 import com.liulianggu.adapter.NewAppListAdapter;
 import com.liulianggu.adapter.NewAppListAdapter.Callback;
+import com.liulianggu.application.PersonalData;
 import com.liulianggu.beans.AdvertisementItem;
 import com.liulianggu.games.GameOf2048;
 import com.liulianggu.tabmenu.R;
 import com.liulianggu.userOpration.AdvertisementOpration;
+import com.liulianggu.userOpration.FlowOpration;
 
 /****************
  * 赚取流量相关界面
@@ -142,6 +144,25 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 		appSortType.setOnItemSelectedListener(this);
 		// 玩游戏
 		// playGame.setOnClickListener(this);
+		appList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				AdvertisementItem item = adapter.getItem(position);
+				Intent intent1 = new Intent(MakeDataPage.this,
+						AdvertisementDetial.class);
+				// Bundle bundle = new Bundle();
+				// bundle.putParcelable("appDetail", item);
+				// intent1.putExtras(bundle);
+				intent1.putExtra("appRating", item.getEvaluation());
+				intent1.putExtra("appName", item.getAppName());
+				intent1.putExtra("appMsg", item.getAppMsg());
+				intent1.putExtra("appType", item.getAppType());
+				intent1.putExtra("appUrl", item.getApkUrl());
+				startActivity(intent1);
+			}
+		});
 	}
 
 	@Override
@@ -295,6 +316,11 @@ public class MakeDataPage extends Activity implements OnScrollListener,
 						.getDrawable(R.drawable.open_apk), null, null, null);
 				button.setText("打开");
 				button.setClickable(true);
+				FlowOpration flowOpration = new FlowOpration(
+						(PersonalData) getApplication());
+				if (flowOpration.saveFlow(2))
+					if (SaveDataPage.saveDataPage != null)
+						SaveDataPage.saveDataPage.freash();
 				break;
 			// 下载失败，可重新下载
 			case 4:

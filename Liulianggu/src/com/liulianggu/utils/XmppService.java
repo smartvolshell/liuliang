@@ -94,6 +94,26 @@ public class XmppService {
 	}
 
 	/**
+	 * 修改好友的昵称
+	 * 
+	 * @param roster
+	 * @param userJid
+	 * @param newNickName
+	 * @return
+	 */
+	public static boolean changeUserName(Roster roster, String userJid,
+			String newNickName) {
+		try {
+			RosterEntry entry = roster.getEntry(userJid);
+			entry.setName(newNickName);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
 	 * 返回所有组信息 <RosterGroup>
 	 * 
 	 * @return List(RosterGroup)

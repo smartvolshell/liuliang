@@ -49,12 +49,12 @@ public class FlowOpration extends Activity {
 	 */
 	public boolean takeFlow(float gprs) {
 		boolean flag = false;
-		if (sopOpration.takeFlow(appDate.getPhoneNum(), gprs)) {
-			appDate.setGprs(sopOpration.getGprs(appDate.getPhoneNum()));
-			flag = true;
-		} else {
-			sopOpration.takeFlow(appDate.getPhoneNum(), 0 - gprs);
-		}
+		// if (sopOpration.takeFlow(appDate.getPhoneNum(), gprs)) {
+		// appDate.setGprs(sopOpration.getGprs(appDate.getPhoneNum()));
+		// flag = true;
+		// } else {
+		// sopOpration.takeFlow(appDate.getPhoneNum(), 0 - gprs);
+		// }
 		return flag;
 	}
 
